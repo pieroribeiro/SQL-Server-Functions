@@ -1,0 +1,26 @@
+// ******************** NODEJS
+
+var getDistance = function(_lat1, _long1, _lat2, _long2){
+	const _d2r		= 0.017453292519943295769236;
+	var _dlong		= (_long2 - _long1) * _d2r
+    var _dlat		= (_lat2 - _lat1) * _d2r
+    var _temp_sin	= Math.sin(_dlat/2.0)
+    var _temp_cos	= Math.cos(_lat1 * _d2r)
+    var _temp_sin2	= Math.sin(_dlong/2.0)
+    var _a			= (_temp_sin * _temp_sin) + (_temp_cos * _temp_cos) * (_temp_sin2 * _temp_sin2)
+    var _c			= 2.0 * Math.atan2(Math.sqrt(_a), Math.sqrt(1.0 - _a))
+    return (6368.1 * _c);	
+}
+
+
+var my_lat 		= '-23.5845854';
+var my_long 	= '-50.58412585';
+
+ForEach in table Locations
+	var lat_record 		= itemLoop.latitude;
+	var long_record 	= itemLoop.longitude;
+	var distancia 		= getDistance(my_lat, my_long, lat_record, long_record);
+	// insert into TMP Table
+End ForEach
+
+Get top 1 from TMP Table, ordered by distance ASC
